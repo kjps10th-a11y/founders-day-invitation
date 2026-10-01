@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0e2a21">
+<title>Founders Day Invitation – K. John Public School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Great+Vibes&family=Mukta:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night:#0b241c;
+    --moss:#1f4f3b;
+    --leaf:#8fd0a8;
+    --blossom:#f2a1b5;
+    --blush:#fff5f6;
+    --gold:#e3b04b;
+    --ink:#23352c;
+    --muted:#5d7066;
+    --display:"Cormorant Garamond", Georgia, "Times New Roman", serif;
+    --script:"Great Vibes", "Brush Script MT", cursive;
+    --body:"Mukta", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none !important}
+  html,body{margin:0;min-height:100%}
+  body{
+    font-family:var(--body);color:#eaf5ee;
+    background:
+      radial-gradient(90% 60% at 50% 38%, #1d4d3b 0%, rgba(29,77,59,0) 70%),
+      linear-gradient(#08201a,#0d2a21 60%,#0a2019);
+    background-attachment:fixed;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- ambient layer: petals + fireflies ---------- */
+  #ambient{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+  .petal{
+    position:absolute;top:-30px;width:var(--s);height:var(--s);background:var(--c);opacity:.7;
+    border-radius:150% 0 150% 0;animation:fall var(--d) linear var(--delay) infinite;
+  }
+  @keyframes fall{
+    0%{transform:translate3d(0,-30px,0) rotate(0deg)}
+    50%{transform:translate3d(var(--x),55vh,0) rotate(200deg)}
+    100%{transform:translate3d(calc(var(--x) * -0.4),110vh,0) rotate(420deg)}
+  }
+  .fly{
+    position:absolute;width:5px;height:5px;border-radius:50%;background:#ffe8a3;
+    box-shadow:0 0 10px 3px rgba(255,224,130,.55);
+    animation:drift var(--d) ease-in-out var(--delay) infinite alternate, blink var(--b) ease-in-out var(--delay) infinite;
+  }
+  @keyframes drift{to{transform:translate(var(--x),var(--y))}}
+  @keyframes blink{0%,100%{opacity:.15}50%{opacity:1}}
+  .burst{
+    position:fixed;width:var(--s);height:var(--s);background:var(--c);
+    border-radius:150% 0 150% 0;pointer-events:none;z-index:40;
+    animation:burst 1.7s cubic-bezier(.2,.7,.3,1) forwards;
+  }
+  @keyframes burst{
+    0%{transform:translate(0,0) rotate(0) scale(.4);opacity:1}
+    100%{transform:translate(var(--dx),var(--dy)) rotate(var(--r)) scale(1);opacity:0}
+  }
+
+  /* ---------- stage 1 : envelope ---------- */
+  #stage1{
+    position:fixed;inset:0;z-index:5;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.4rem;
+    padding:1.5rem;text-align:center;transition:opacity .7s ease, transform .7s ease;
+  }
+  #stage1.leaving{opacity:0;transform:scale(1.04)}
+  .from{font-family:var(--display);font-style:italic;font-weight:500;font-size:clamp(1.3rem,4.6vw,1.8rem);color:#e9f4ec;margin:0}
+  .hint{margin:0;color:var(--leaf);font-size:1rem;transition:opacity .4s}
+  #stage1.opened .hint{opacity:0}
+
+  .env{
+    position:relative;width:min(84vw,360px);aspect-ratio:3/2;border:0;background:none;padding:0;cursor:pointer;
+    perspective:1000px;animation:nudge 3.2s ease-in-out infinite;-webkit-tap-highlight-color:transparent;
+  }
+  .env:focus-visible{outline:3px solid var(--gold);outline-offset:10px;border-radius:8px}
+  .env.open{animation:none}
+  @keyframes nudge{
+    0%,70%,100%{transform:rotate(0) translateY(0)}
+    78%{transform:rotate(-1.6deg) translateY(-4px)}
+    86%{transform:rotate(1.6deg) translateY(-4px)}
+    94%{transform:rotate(0) translateY(0)}
+  }
+  .env .back{position:absolute;inset:0;background:#2b6a4f;border-radius:6px;z-index:1;box-shadow:0 30px 60px rgba(0,0,0,.5), 0 0 80px rgba(227,176,75,.12)}
+  .env .paper{
+    position:absolute;left:7%;right:7%;top:6%;height:88%;z-index:2;background:var(--blush);border-radius:4px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;
+    transition:transform 1s cubic-bezier(.3,.7,.2,1) .55s;
+  }
+  .env .paper b{font-family:var(--display);font-size:1.55rem;font-weight:700;color:var(--moss)}
+  .env .paper span{font-family:var(--script);font-size:1.5rem;color:#b4546d}
+  .env.open .paper{transform:translateY(-58%)}
+  .env .pocket{position:absolute;inset:0;z-index:3;border-radius:6px;overflow:hidden}
+  .env .pocket i{position:absolute;inset:0}
+  .env .pocket .l{background:#246049;clip-path:polygon(0 0,52% 52%,0 100%)}
+  .env .pocket .r{background:#246049;clip-path:polygon(100% 0,48% 52%,100% 100%)}
+  .env .pocket .b{background:#1b5240;clip-path:polygon(0 100%,50% 48%,100% 100%)}
+  .env .flap{
+    position:absolute;left:0;right:0;top:0;height:58%;z-index:4;background:#348060;
+    clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:50% 0;transition:transform .7s ease, z-index 0s .35s;
+  }
+  .env.open .flap{transform:rotateX(180deg);z-index:1}
+  .env .seal{
+    position:absolute;left:50%;top:58%;width:56px;height:56px;margin:-28px 0 0 -28px;z-index:5;border-radius:50%;
+    display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#f6d98a,#d19a2f 70%);
+    box-shadow:0 4px 10px rgba(0,0,0,.35);transition:opacity .3s, transform .4s;
+  }
+  .env.open .seal{opacity:0;transform:scale(.5)}
+
+  /* ---------- stage 2 ---------- */
+  #stage2{position:relative;z-index:2;opacity:0;transition:opacity 1s ease;overflow-x:hidden}
+  #stage2.show{opacity:1}
+
+  /* hero: the growing tree */
+  .hero{padding:1.2rem 1rem 1rem;text-align:center}
+  .tree{width:min(96vw,430px);height:auto;display:block;margin:0 auto;overflow:visible;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .tree .br{stroke-dasharray:1;stroke-dashoffset:1}
+  .tree.go .br{animation:draw var(--dur) ease-out var(--delay) forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .tree .bloom{transform:scale(0);transform-origin:0 0}
+  .tree.go .bloom{animation:pop .8s cubic-bezier(.3,1.6,.5,1) var(--delay) forwards}
+  @keyframes pop{to{transform:scale(1)}}
+  .tree .halo{animation:pulse 2.4s ease-in-out infinite;transform-origin:200px 428px}
+  @keyframes pulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.35)}}
+
+  h1{
+    font-family:var(--display);font-weight:700;color:#fff5f6;
+    font-size:clamp(2.5rem,10vw,4.2rem);line-height:1.02;margin:.4rem 0 .6rem;letter-spacing:-.01em;
+  }
+  .tagline{
+    font-family:var(--display);font-style:italic;font-weight:500;
+    font-size:clamp(1.25rem,4.6vw,1.7rem);color:var(--gold);margin:0 0 1.6rem;
+  }
+  .count{margin:0 auto;font-family:var(--display);font-weight:600;font-size:clamp(3rem,13vw,4.6rem);line-height:1;color:var(--blossom)}
+  .count-label{margin:.2rem 0 0;color:var(--leaf);font-size:1rem}
+  .scroll-hint{display:inline-block;margin-top:1.6rem;color:var(--leaf);font-size:.95rem;animation:bob 2.2s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+  /* the letter */
+  .letter{
+    position:relative;max-width:560px;margin:2.8rem 1rem 0;background:var(--blush);color:var(--ink);
+    padding:2.6rem 1.6rem 2.2rem;border-radius:4px;transform:rotate(-.7deg);
+    box-shadow:0 30px 70px rgba(0,0,0,.5);
+  }
+  @media (min-width:620px){.letter{margin-left:auto;margin-right:auto;padding:3rem 3rem 2.6rem}}
+  .letter::before,.letter::after{
+    content:"";position:absolute;top:-13px;width:96px;height:28px;background:rgba(227,176,75,.6);
+  }
+  .letter::before{left:12%;transform:rotate(-6deg)}
+  .letter::after{right:12%;transform:rotate(5deg)}
+  .letter p{margin:0 0 1.05rem;font-size:1.1rem;line-height:1.75}
+  .letter .greet{font-family:var(--display);font-size:1.6rem;font-weight:600;color:var(--moss);margin-bottom:.9rem}
+  .letter .sign{margin:1.6rem 0 0;text-align:right;color:var(--moss)}
+  .letter .sign .by{display:block;font-size:.98rem;color:var(--muted);margin:0 0 .2rem}
+  .letter .sign .names{display:block;font-family:var(--script);font-size:2rem;line-height:1.2;color:#b4546d}
+  .rv{opacity:0;transform:translateY(16px);transition:opacity .8s ease, transform .8s ease}
+  .rv.in{opacity:1;transform:none}
+
+  /* the seed packet */
+  .sow{padding:3.4rem 1rem 1rem;text-align:center}
+  h2{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,6.4vw,2.6rem);color:#fff5f6;margin:0 0 .3rem}
+  .sub{margin:0 auto 1.8rem;max-width:34ch;color:var(--leaf);font-size:1.05rem}
+  .packet{
+    --pk:#f6c7d3;position:relative;max-width:380px;margin:0 auto;background:var(--pk);color:var(--ink);
+    padding:1.5rem 1.2rem 1.3rem;border-radius:0 0 16px 16px;box-shadow:0 26px 60px rgba(0,0,0,.5);
+    transform:rotate(.8deg);
+  }
+  .packet::before{
+    content:"";position:absolute;left:0;right:0;top:-7px;height:7px;
+    background:conic-gradient(from 135deg at top,#0000,var(--pk) 1deg 89deg,#0000 90deg) 50% 0/14px 100%;
+  }
+  .packet .ptitle{font-family:var(--display);font-weight:700;font-size:1.7rem;line-height:1.05;color:var(--moss);margin:0}
+  .packet .psub{font-family:var(--script);font-size:1.5rem;color:#b4546d;margin:.1rem 0 .9rem}
+  .packet .fine{margin:.9rem 0 0;font-size:.9rem;color:#7a4a58}
+  .scratch-box{
+    position:relative;width:100%;height:230px;border-radius:14px;overflow:hidden;
+    background:linear-gradient(160deg,#fff7ee,#ffe9ef);box-shadow:inset 0 0 0 3px var(--moss);touch-action:none;
+  }
+  .details{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 1rem;text-align:center}
+  .details dl{margin:0}
+  .details dt{font-size:.9rem;color:#8a5a68;margin:0}
+  .details dd{margin:0 0 .5rem;font-family:var(--display);font-weight:700;font-size:1.65rem;line-height:1.12;color:var(--moss)}
+  .details dd:last-child{margin-bottom:0}
+  #scratch{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair;touch-action:none;transition:opacity .9s ease}
+  #scratch.gone{opacity:0;pointer-events:none}
+  .reveal-btn{
+    margin-top:1rem;background:none;border:0;color:var(--leaf);font:inherit;font-size:.95rem;
+    text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:.4rem .6rem;
+  }
+  .reveal-btn:focus-visible,.save:focus-visible{outline:3px solid var(--gold);border-radius:8px}
+  .after{margin:1.8rem auto 0;max-width:420px;opacity:0;transform:translateY(10px);transition:opacity 1s ease .6s, transform 1s ease .6s}
+  .after.on{opacity:1;transform:none}
+  .until{font-family:var(--display);font-size:1.7rem;font-weight:600;color:var(--gold);margin:0 0 1rem;line-height:1.2}
+  .save{
+    font:inherit;font-weight:500;font-size:1.02rem;color:var(--night);background:var(--gold);border:0;border-radius:999px;
+    padding:.8rem 1.5rem;cursor:pointer;box-shadow:0 8px 22px rgba(227,176,75,.28);
+  }
+  .closing{margin:1.8rem auto 0;font-family:var(--script);font-size:2.1rem;line-height:1.25;color:#fff5f6}
+  .foot{margin:0;padding:3rem 1rem 6rem;text-align:center;color:#7fa391;font-size:.92rem}
+
+  /* ---------- music toggle ---------- */
+  #music{
+    position:fixed;right:16px;bottom:16px;z-index:50;width:48px;height:48px;border-radius:50%;border:0;cursor:pointer;
+    display:grid;place-items:center;background:rgba(255,245,246,.95);color:var(--moss);box-shadow:0 6px 18px rgba(0,0,0,.4);
+  }
+  #music:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+  #music .off{display:none}
+  #music[aria-pressed="false"] .on{display:none}
+  #music[aria-pressed="false"] .off{display:block}
+
+  @media (prefers-reduced-motion:reduce){
+    .petal,.fly,.env,.halo,.scroll-hint{animation:none !important}
+    .tree .br{stroke-dashoffset:0;animation:none !important}
+    .tree .bloom{transform:scale(1);animation:none !important}
+    .rv{opacity:1;transform:none;transition:none}
+    .env .paper,.env .flap{transition-duration:.01s;transition-delay:0s}
+  }
+</style>
+</head>
+<body>
+
+<!-- Reusable blossom (colour is set where it is used) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="flower" viewBox="-50 -50 100 100">
+      <g fill="currentColor">
+        <ellipse cx="0" cy="-22" rx="13" ry="22"/>
+        <ellipse cx="0" cy="-22" rx="13" ry="22" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-22" rx="13" ry="22" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-22" rx="13" ry="22" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-22" rx="13" ry="22" transform="rotate(288)"/>
+      </g>
+      <circle r="9" fill="#e3b04b"/>
+      <circle r="3.5" fill="#b9811d"/>
+    </symbol>
+    <radialGradient id="glow">
+      <stop offset="0" stop-color="#ffe8a3" stop-opacity=".9"/>
+      <stop offset="1" stop-color="#ffe8a3" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>
+
+<div id="ambient" aria-hidden="true"></div>
+
+<!-- Stage 1: envelope -->
+<section id="stage1">
+  <p class="from">An invitation from K. John Public School</p>
+
+  <button class="env" id="env" type="button" aria-label="Open the invitation envelope">
+    <div class="back"></div>
+    <div class="paper"><b>You are invited</b><span>for Founders Day</span></div>
+    <div class="pocket"><i class="l"></i><i class="r"></i><i class="b"></i></div>
+    <div class="flap"></div>
+    <div class="seal" aria-hidden="true">
+      <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+        <path d="M15 27V14" stroke="#4a2f05" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M15 16C15 10 10 6 4 6c0 6 4 10 11 10Z" fill="#4a2f05"/>
+        <path d="M15 13c0-5 4-9 11-9 0 6-4 9-11 9Z" fill="#4a2f05"/>
+      </svg>
+    </div>
+  </button>
+
+  <p class="hint">Tap the envelope to open</p>
+</section>
+
+<!-- Stage 2 -->
+<main id="stage2" hidden>
+
+  <section class="hero">
+    <svg id="tree" class="tree" viewBox="-20 40 440 420" role="img" aria-label="A single seed growing into a tree full of blossoms">
+      <ellipse cx="200" cy="436" rx="130" ry="15" fill="#123a2c"/>
+      <g id="branches" fill="none" stroke-linecap="round"></g>
+      <g id="blooms"></g>
+      <circle class="halo" cx="200" cy="428" r="16" fill="url(#glow)"/>
+      <ellipse cx="200" cy="430" rx="9" ry="6" fill="#e3b04b"/>
+    </svg>
+
+    <h1>One seed,<br>a thousand blossoms</h1>
+    <p class="tagline">Celebrating a legacy, inspiring the future</p>
+
+    <p class="count" id="num" aria-hidden="true">1</p>
+    <p class="count-label">blossoms, and still growing</p>
+    <span class="scroll-hint">Scroll down to read your invitation &#8595;</span>
+  </section>
+
+  <article class="letter">
+    <p class="greet rv">Respected <span id="who">Principal</span>,</p>
+    <p class="rv">Every school begins with a seed: a dream planted with patience, faith and care.</p>
+    <p class="rv">Over the years, your vision has grown into a garden of a thousand blossoms &ndash; students who learn, teachers who lead, and a family that is proud to call this school home.</p>
+    <p class="rv">This year, we celebrate your birthday as our Founders Day, and it would be our greatest honour to have you celebrate it with us. Please join us for a morning of gratitude, music and memories.</p>
+    <p class="sign rv"><span class="by">With respect and warm regards,</span><span class="names">Students, Teachers &amp; Staff</span></p>
+  </article>
+
+  <section class="sow">
+    <h2>A little seed for you</h2>
+    <p class="sub">Dig through the soil to find where and when our garden blooms.</p>
+
+    <div class="packet">
+      <p class="ptitle">Founders Day seeds</p>
+      <p class="psub">sow with gratitude</p>
+
+      <div class="scratch-box" id="box">
+        <dl class="details" id="details">
+          <div>
+            <dt>Date</dt>
+            <dd>Saturday, 03 October 2026</dd>
+            <dt>Time</dt>
+            <dd>10:00 AM</dd>
+            <dt>Venue</dt>
+            <dd>K. John Public School</dd>
+          </div>
+        </dl>
+        <canvas id="scratch" aria-hidden="true"></canvas>
+      </div>
+      <p class="fine">Contents: one legacy, countless blossoms. Water with love.</p>
+    </div>
+    <button class="reveal-btn" id="revealBtn" type="button">Can't scratch? Show the details</button>
+
+    <div class="after" id="after">
+      <p class="until" id="until"></p>
+      <button class="save" id="saveBtn" type="button">Save the date to my calendar</button>
+      <p class="closing">We look forward to your gracious presence.</p>
+    </div>
+  </section>
+
+  <p class="foot">Made with love by the students, teachers and staff of K. John Public School</p>
+</main>
+
+<button id="music" type="button" aria-pressed="true" aria-label="Turn music off" hidden>
+  <svg class="on" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>
+  </svg>
+  <svg class="off" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/><path d="M3 3l18 18"/>
+  </svg>
+</button>
+
+<script>
+/* ============ EASY EDITS ============ */
+const PRINCIPAL_NAME = "Dr. K. V. John";   // shown after "Respected"
+/* ==================================== */
+
+const reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+document.getElementById('who').textContent = PRINCIPAL_NAME;
+
+/* ---------- ambient: falling petals and fireflies ---------- */
+(function(){
+  const layer = document.getElementById('ambient');
+  const colors = ['#f2a1b5','#f7c1cf','#ffd7e0','#e98aa4'];
+  for(let i=0;i<14;i++){
+    const p = document.createElement('span');
+    p.className = 'petal';
+    p.style.left = (Math.random()*100)+'%';
+    p.style.setProperty('--s', (10+Math.random()*12)+'px');
+    p.style.setProperty('--d', (10+Math.random()*9)+'s');
+    p.style.setProperty('--delay', (-Math.random()*14)+'s');
+    p.style.setProperty('--x', (Math.random()*160-80)+'px');
+    p.style.setProperty('--c', colors[i%colors.length]);
+    layer.appendChild(p);
+  }
+  for(let i=0;i<16;i++){
+    const f = document.createElement('span');
+    f.className = 'fly';
+    f.style.left = (Math.random()*100)+'%';
+    f.style.top = (10+Math.random()*80)+'%';
+    f.style.setProperty('--x', (Math.random()*120-60)+'px');
+    f.style.setProperty('--y', (Math.random()*120-60)+'px');
+    f.style.setProperty('--d', (5+Math.random()*6)+'s');
+    f.style.setProperty('--b', (2.5+Math.random()*3)+'s');
+    f.style.setProperty('--delay', (-Math.random()*6)+'s');
+    layer.appendChild(f);
+  }
+})();
+
+/* ---------- Music: a soft original melody made live in the browser ----------
+   No audio file or internet needed, so nothing can break or be copyrighted. */
+const Music = (function(){
+  let ac, master, wet, timer, next = 0, idx = 0, playing = false;
+  const f = m => 440*Math.pow(2,(m-69)/12);
+  const E = 0.42;
+  const chords = [
+    {pad:[48,55,64], arp:[60,64,67,72,67,64,67,64], mel:[79,76]},
+    {pad:[45,52,60], arp:[57,60,64,69,64,60,64,60], mel:[81,76]},
+    {pad:[41,48,57], arp:[60,65,69,72,69,65,69,65], mel:[77,81]},
+    {pad:[43,50,59], arp:[59,62,67,71,67,62,67,62], mel:[79,74]}
+  ];
+  function build(){
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if(!AC) return false;
+    ac = new AC();
+    master = ac.createGain(); master.gain.value = 0; master.connect(ac.destination);
+    const conv = ac.createConvolver();
+    const len = ac.sampleRate*2.6, buf = ac.createBuffer(2,len,ac.sampleRate);
+    for(let c=0;c<2;c++){
+      const d = buf.getChannelData(c);
+      for(let i=0;i<len;i++) d[i] = (Math.random()*2-1)*Math.pow(1-i/len,2.6);
+    }
+    conv.buffer = buf; wet = conv;
+    const wg = ac.createGain(); wg.gain.value = .55;
+    conv.connect(wg); wg.connect(master);
+    return true;
+  }
+  function tone(freq,t,dur,vol,type,attack){
+    const o = ac.createOscillator(), g = ac.createGain();
+    o.type = type; o.frequency.value = freq;
+    g.gain.setValueAtTime(0.0001,t);
+    g.gain.linearRampToValueAtTime(vol,t+attack);
+    g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+    o.connect(g); g.connect(master); g.connect(wet);
+    o.start(t); o.stop(t+dur+0.05);
+  }
+  function schedule(){
+    if(next < ac.currentTime) next = ac.currentTime + 0.05;
+    while(next < ac.currentTime + 0.9){
+      const c = chords[idx];
+      tone(f(c.pad[0]-12), next, 8*E+0.6, 0.05, 'sine', 0.4);                       // soft bass
+      c.pad.forEach(n => tone(f(n), next, 8*E+0.9, 0.04, 'sine', 1.2));            // warm pad
+      c.arp.forEach((n,i) => tone(f(n), next+i*E, 1.5, 0.07, 'triangle', 0.015));  // harp-like notes
+      c.mel.forEach((n,k) => tone(f(n+12), next+k*4*E+0.02, 1.8, 0.022, 'sine', 0.01)); // tiny chime
+      c.mel.forEach((n,k) => tone(f(n), next+k*4*E, 2.4, 0.06, 'sine', 0.06));     // melody
+      next += 8*E;
+      idx = (idx+1) % chords.length;
+    }
+  }
+  function start(){
+    try{
+      if(!ac && !build()) return;
+      ac.resume();
+      if(!timer){ next = ac.currentTime + 0.1; schedule(); timer = setInterval(schedule,250); }
+      master.gain.cancelScheduledValues(ac.currentTime);
+      master.gain.setTargetAtTime(0.55, ac.currentTime, 0.6);
+      playing = true;
+    }catch(e){ /* sound is optional – never block the invitation */ }
+  }
+  function stop(){
+    if(!ac) return;
+    master.gain.cancelScheduledValues(ac.currentTime);
+    master.gain.setTargetAtTime(0, ac.currentTime, 0.15);
+    clearInterval(timer); timer = null;
+    playing = false;
+    setTimeout(()=>{ if(!playing) ac.suspend(); }, 700);
+  }
+  return { start, stop, toggle(){ playing ? stop() : start(); return playing; } };
+})();
+
+const musicBtn = document.getElementById('music');
+musicBtn.addEventListener('click', () => {
+  const on = Music.toggle();
+  musicBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+  musicBtn.setAttribute('aria-label', on ? 'Turn music off' : 'Turn music on');
+});
+
+/* ---------- the blossom tree (drawn by code, so it grows branch by branch) ---------- */
+(function buildTree(){
+  const NS = 'http://www.w3.org/2000/svg';
+  const branches = document.getElementById('branches');
+  const blooms = document.getElementById('blooms');
+  let s = 11;
+  const rnd = () => { s |= 0; s = s + 0x6D2B79F5 | 0; let t = Math.imul(s ^ s>>>15, 1|s);
+    t = t + Math.imul(t ^ t>>>7, 61|t) ^ t; return ((t ^ t>>>14)>>>0)/4294967296; };
+  const petals = ['#f2a1b5','#f7c1cf','#ffd7e0','#e98aa4','#fbb6c6','#ffffff'];
+  const barks  = ['#a56f45','#b27b4e','#bf8a58','#cc9a68','#d8a877','#e2b98a'];
+  const MAXD = 5;
+
+  function flower(x,y,t){
+    const size = 15 + rnd()*11;
+    const g = document.createElementNS(NS,'g');
+    g.setAttribute('transform',`translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${(rnd()*72).toFixed(0)})`);
+    const b = document.createElementNS(NS,'g');
+    b.setAttribute('class','bloom');
+    b.style.setProperty('--delay', t.toFixed(2)+'s');
+    const u = document.createElementNS(NS,'use');
+    u.setAttribute('href','#flower');
+    u.setAttribute('x', -size/2); u.setAttribute('y', -size/2);
+    u.setAttribute('width', size); u.setAttribute('height', size);
+    u.style.color = petals[Math.floor(rnd()*petals.length)];
+    b.appendChild(u); g.appendChild(b); blooms.appendChild(g);
+  }
+
+  function grow(x,y,ang,len,d,t0){
+    const r = ang*Math.PI/180;
+    const x2 = x + Math.sin(r)*len, y2 = y - Math.cos(r)*len;
+    const bend = (rnd()-.5)*len*.4;
+    const cx = (x+x2)/2 + Math.cos(r)*bend, cy = (y+y2)/2 + Math.sin(r)*bend;
+    const dur = d===0 ? 1.3 : Math.max(.38, .66 - d*.05);
+
+    const p = document.createElementNS(NS,'path');
+    p.setAttribute('class','br');
+    p.setAttribute('pathLength','1');
+    p.setAttribute('d',`M${x.toFixed(1)} ${y.toFixed(1)} Q${cx.toFixed(1)} ${cy.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`);
+    p.setAttribute('stroke', barks[d]);
+    p.setAttribute('stroke-width', Math.max(1.3, 7.5 - d*1.35).toFixed(1));
+    p.style.setProperty('--delay', t0.toFixed(2)+'s');
+    p.style.setProperty('--dur', dur.toFixed(2)+'s');
+    branches.appendChild(p);
+
+    const t1 = t0 + dur;
+    if(d >= 2) flower(x2, y2, t1 + rnd()*.7);
+    if(d >= 3 && rnd() > .35) flower((x+x2)/2 + (rnd()-.5)*6, (y+y2)/2 + (rnd()-.5)*6, t1 + rnd()*.9);
+
+    if(d < MAXD){
+      const n = (d >= 2 && d < 4 && rnd() > .55) ? 3 : 2;
+      for(let i=0;i<n;i++){
+        const side = n===2 ? (i ? 1 : -1) : i-1;
+        let a = ang + side*(16 + rnd()*16) + (rnd()-.5)*8;
+        a = Math.max(-82, Math.min(82, a));
+        grow(x2, y2, a, len*(.72 + rnd()*.06), d+1, t1 - .05);
+      }
+    }
+  }
+  grow(200, 426, 0, 100, 0, 0.4);
+})();
+
+/* ---------- open the envelope ---------- */
+const env = document.getElementById('env');
+const stage1 = document.getElementById('stage1');
+const stage2 = document.getElementById('stage2');
+let opened = false;
+
+env.addEventListener('click', () => {
+  if(opened) return;
+  opened = true;
+  env.classList.add('open');
+  stage1.classList.add('opened');
+  Music.start();                               // starts from a real tap, so browsers allow it
+  setTimeout(()=>{ const r = env.getBoundingClientRect(); blossomBurst(r.left + r.width/2, r.top + r.height*.35); }, 550);
+  setTimeout(()=> stage1.classList.add('leaving'), 2100);
+  setTimeout(()=>{
+    stage1.hidden = true;
+    stage2.hidden = false;
+    musicBtn.hidden = false;
+    window.scrollTo(0,0);
+    paintSoil();
+    requestAnimationFrame(()=> requestAnimationFrame(()=>{
+      stage2.classList.add('show');
+      document.getElementById('tree').classList.add('go');
+      countUp();
+    }));
+  }, 2800);
+});
+
+/* ---------- counter: 1 → 1,000 ---------- */
+function countUp(){
+  const el = document.getElementById('num');
+  if(reduceMotion){ el.textContent = '1,000'; return; }
+  const start = performance.now() + 600, dur = 5200;
+  (function tick(now){
+    const t = Math.min(1, Math.max(0,(now - start)/dur));
+    const e = 1 - Math.pow(1-t, 3);
+    el.textContent = Math.max(1, Math.round(e*1000)).toLocaleString('en-US');
+    if(t < 1) requestAnimationFrame(tick);
+  })(performance.now());
+}
+
+/* tapping the tree sends a shower of blossoms */
+document.getElementById('tree').addEventListener('pointerdown', e => blossomBurst(e.clientX, e.clientY));
+
+/* ---------- letter lines appear as you scroll ---------- */
+(function(){
+  const items = document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)){ items.forEach(i => i.classList.add('in')); return; }
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, { threshold: .25 });
+  items.forEach((el,i) => { el.style.transitionDelay = (i%2 ? .12 : 0)+'s'; io.observe(el); });
+})();
+
+/* ---------- scratch the soil ---------- */
+const canvas = document.getElementById('scratch');
+const box = document.getElementById('box');
+const sctx = canvas.getContext('2d', { willReadFrequently:true });
+const revealBtn = document.getElementById('revealBtn');
+let scratching = false, touched = false, done = false, last = null, lastCheck = 0;
+
+function paintSoil(){
+  if(touched || done) return;
+  const r = box.getBoundingClientRect();
+  if(!r.width) return;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  canvas.width = Math.round(r.width*dpr);
+  canvas.height = Math.round(r.height*dpr);
+  sctx.setTransform(dpr,0,0,dpr,0,0);
+  sctx.globalCompositeOperation = 'source-over';
+  const W = r.width, H = r.height;
+
+  const g = sctx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0,'#6e4831'); g.addColorStop(1,'#46291a');
+  sctx.fillStyle = g; sctx.fillRect(0,0,W,H);
+
+  const shades = ['#80593b','#3a2214','#8d684a','#5a3a25','#2f1a0e'];
+  for(let i=0;i<900;i++){
+    sctx.fillStyle = shades[i%shades.length];
+    const s = 1 + Math.random()*2.6;
+    sctx.fillRect(Math.random()*W, Math.random()*H, s, s);
+  }
+  for(let i=0;i<26;i++){
+    sctx.fillStyle = 'rgba(160,126,92,.55)';
+    sctx.beginPath();
+    sctx.ellipse(Math.random()*W, Math.random()*H, 3+Math.random()*5, 2+Math.random()*3, Math.random()*3, 0, Math.PI*2);
+    sctx.fill();
+  }
+  sctx.textAlign = 'center'; sctx.textBaseline = 'middle';
+  sctx.fillStyle = '#f8e6cf';
+  sctx.font = '700 32px "Cormorant Garamond", Georgia, serif';
+  sctx.fillText('Scratch the soil', W/2, H/2 - 12);
+  sctx.fillStyle = '#ecd3b3';
+  sctx.font = '500 15px Mukta, system-ui, sans-serif';
+  sctx.fillText('to see where our garden grows', W/2, H/2 + 20);
+}
+window.addEventListener('resize', paintSoil);
+
+function pos(e){ const r = canvas.getBoundingClientRect(); return { x:e.clientX - r.left, y:e.clientY - r.top }; }
+function scratchTo(p){
+  sctx.globalCompositeOperation = 'destination-out';
+  sctx.lineCap = 'round'; sctx.lineJoin = 'round'; sctx.lineWidth = 46;
+  sctx.beginPath(); sctx.moveTo(last.x, last.y); sctx.lineTo(p.x + 0.01, p.y + 0.01); sctx.stroke();
+  last = p;
+}
+function cleared(){
+  const w = canvas.width, h = canvas.height;
+  const d = sctx.getImageData(0,0,w,h).data;
+  let c = 0, t = 0;
+  for(let y=0;y<h;y+=6){ for(let x=0;x<w;x+=6){ t++; if(d[(y*w+x)*4+3] < 40) c++; } }
+  return c/t;
+}
+canvas.addEventListener('pointerdown', e => {
+  if(done) return;
+  scratching = true; touched = true;
+  canvas.setPointerCapture(e.pointerId);
+  last = pos(e); scratchTo(last);
+});
+canvas.addEventListener('pointermove', e => {
+  if(!scratching || done) return;
+  scratchTo(pos(e));
+  const now = performance.now();
+  if(now - lastCheck > 160){ lastCheck = now; if(cleared() > 0.45) reveal(); }
+});
+['pointerup','pointercancel'].forEach(ev => canvas.addEventListener(ev, () => {
+  scratching = false;
+  if(!done && touched && cleared() > 0.45) reveal();
+}));
+
+const EVENT = new Date('2026-10-03T10:00:00+05:30');
+const untilEl = document.getElementById('until');
+function updateUntil(){
+  const ms = EVENT - Date.now();
+  if(ms <= 0){ untilEl.textContent = 'The celebration has begun.'; return; }
+  const m = Math.floor(ms/60000), d = Math.floor(m/1440), h = Math.floor((m%1440)/60), mi = m%60;
+  const parts = [];
+  if(d) parts.push(d + (d===1 ? ' day' : ' days'));
+  if(d || h) parts.push(h + (h===1 ? ' hour' : ' hours'));
+  parts.push(mi + (mi===1 ? ' minute' : ' minutes'));
+  untilEl.textContent = parts.join(', ') + ' to go';
+}
+
+function reveal(){
+  if(done) return;
+  done = true;
+  canvas.classList.add('gone');
+  revealBtn.hidden = true;
+  updateUntil(); setInterval(updateUntil, 30000);
+  document.getElementById('after').classList.add('on');
+  const r = box.getBoundingClientRect();
+  blossomBurst(r.left + r.width/2, r.top + r.height/2);
+}
+revealBtn.addEventListener('click', reveal);
+
+/* ---------- save the date ---------- */
+document.getElementById('saveBtn').addEventListener('click', () => {
+  const ics = [
+    'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//K. John Public School//Founders Day//EN',
+    'BEGIN:VEVENT','UID:founders-day-2026@kjohnpublicschool','DTSTAMP:20261001T000000Z',
+    'DTSTART:20261003T100000','SUMMARY:Founders Day Celebration','LOCATION:K. John Public School',
+    'DESCRIPTION:One seed\\, a thousand blossoms - celebrating a legacy\\, inspiring the future.',
+    'END:VEVENT','END:VCALENDAR'
+  ].join('\r\n');
+  const url = URL.createObjectURL(new Blob([ics], { type:'text/calendar' }));
+  const a = document.createElement('a');
+  a.href = url; a.download = 'founders-day-2026.ics';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=> URL.revokeObjectURL(url), 1500);
+});
+
+/* ---------- blossom burst ---------- */
+function blossomBurst(cx, cy){
+  const colors = ['#f2a1b5','#f7c1cf','#e3b04b','#e98aa4','#8fd0a8','#ffffff'];
+  for(let i=0;i<30;i++){
+    const p = document.createElement('span');
+    p.className = 'burst';
+    const a = Math.random()*Math.PI*2, d = 80 + Math.random()*180;
+    p.style.left = cx+'px'; p.style.top = cy+'px';
+    p.style.setProperty('--s', (9+Math.random()*12)+'px');
+    p.style.setProperty('--c', colors[i%colors.length]);
+    p.style.setProperty('--dx', Math.cos(a)*d+'px');
+    p.style.setProperty('--dy', (Math.sin(a)*d + 60)+'px');
+    p.style.setProperty('--r', (Math.random()*540-270)+'deg');
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(), 1900);
+  }
+}
+</script>
+</body>
+</html>
